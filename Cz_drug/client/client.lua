@@ -47,14 +47,15 @@ Citizen.CreateThread(function()
             end
         end
 
-        for drug, coords in pairs(traitementCoords) do
+        for drugt, coords in pairs(traitementCoords) do
             if #(playerCoords - coords) < 15.0 then
-                ESX.ShowHelpNotification('Appuyez sur ~INPUT_CONTEXT~ pour traiter ' .. drug)
+                ESX.ShowHelpNotification('Appuyez sur ~INPUT_CONTEXT~ pour traiter ' .. drugt)
                 if IsControlJustReleased(0, 38) and not isBusy then
                     isBusy = true
                     TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                     Citizen.SetTimeout(5000, function()
-                        processItem(drug, 'processed_' .. drug)
+                        local processedName = 'processed_' .. drugt
+                        processItem(drugt, processedName)
                         ClearPedTasks(playerPed)
                         isBusy = false
                     end)
